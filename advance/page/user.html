@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="../css/user.css" />
+    <link rel="stylesheet" href="../index.css" />
+  </head>
+  <body>
+    <section class="main">
+      <header class="header">
+        <div class="header-container">
+          <span>아무 말 대잔치</span>
+          <img id="logo" src="/images/logo.png" alt="logo" />
+          <ul id="user-menu" class="user-menu">
+            <li><a href="user.html">회원정보 수정</a></li>
+            <li><a href="">비밀번호 변경</a></li>
+            <li><a href="../index.html">로그아웃</a></li>
+          </ul>
+        </div>
+      </header>
+      <article class="user-edit">
+        <div class="user-edit-container">
+          <h1 class="title">회원정보수정</h1>
+          <div class="user-edit-container-item">
+            <p class="label">프로필 사진*</p>
+            <img src="../images/logo.png" alt="로고 이미지" />
+          </div>
+          <div class="user-edit-container-item">
+            <p class="label">이메일</p>
+            <p class="text">startupcode@gmail.com</p>
+          </div>
+          <div class="user-edit-container-item">
+            <p class="label">닉네임</p>
+            <input
+              id="nickname"
+              class="input-text"
+              type="text"
+              value="스타트업코드"
+            />
+            <p id="error-message" class="error-message">* helper text</p>
+          </div>
+          <input
+            class="button"
+            id="edit-button"
+            type="button"
+            value="수정하기"
+          />
+          <p id="delete-user">회원탈퇴</p>
+          <input class="submit-button" type="submit" value="수정완료" />
+        </div>
+      </article>
+      <div id="toast" class="toast">수정 완료</div>
+    </section>
+    <script src="../javascript/user.js"></script>
+    <script src="../javascript/userMenu.js"></script>
+  </body>
+</html>
