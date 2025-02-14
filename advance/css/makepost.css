@@ -1,26 +1,9 @@
-.header-container {
-  width: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 .make-main {
   width: 500px;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-#logo {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-#before-arrow {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
 }
 .title {
   font-size: 24px;
