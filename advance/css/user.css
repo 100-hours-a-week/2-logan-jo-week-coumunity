@@ -70,6 +70,9 @@
   line-height: 17px;
   font-weight: 700;
   cursor: pointer;
+  &:hover {
+    background-color: #7f6aee;
+  }
 }
 #delete-user {
   font-size: 14px;
@@ -89,20 +92,30 @@
   line-height: 17px;
   cursor: pointer;
   margin-top: 40px;
+  &:hover {
+    background-color: #7f6aee;
+  }
 }
-.toast {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #7f6aee;
+.profile-image-container {
+  position: relative;
+}
+#profile-image {
+  width: 149px;
+  height: 149px;
+  border-radius: 50%;
+}
+.change-image-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
-  padding: 10px 20px;
+  border: none;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  transition: opacity 0.5s ease;
-  opacity: 0;
-  font-size: 14px;
-  line-height: 17px;
-  font-weight: 700;
-  display: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.change-image-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
 }

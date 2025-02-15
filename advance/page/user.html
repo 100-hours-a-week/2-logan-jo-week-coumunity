@@ -15,7 +15,7 @@
           <img id="logo" src="/images/logo.png" alt="logo" />
           <ul id="user-menu" class="user-menu">
             <li><a href="user.html">회원정보 수정</a></li>
-            <li><a href="">비밀번호 변경</a></li>
+            <li><a href="editPassword.html">비밀번호 변경</a></li>
             <li><a href="../index.html">로그아웃</a></li>
           </ul>
         </div>
@@ -25,7 +25,22 @@
           <h1 class="title">회원정보수정</h1>
           <div class="user-edit-container-item">
             <p class="label">프로필 사진*</p>
-            <img src="../images/logo.png" alt="로고 이미지" />
+            <div class="profile-image-container">
+              <img
+                id="profile-image"
+                src="../images/logo.png"
+                alt="로고 이미지"
+              />
+              <input
+                type="file"
+                id="file-input"
+                accept="image/*"
+                style="display: none"
+              />
+              <button id="change-image-button" class="change-image-button">
+                변경
+              </button>
+            </div>
           </div>
           <div class="user-edit-container-item">
             <p class="label">이메일</p>
@@ -48,7 +63,12 @@
             value="수정하기"
           />
           <p id="delete-user">회원탈퇴</p>
-          <input class="submit-button" type="submit" value="수정완료" />
+          <input
+            id="submit-button"
+            class="submit-button"
+            type="submit"
+            value="수정완료"
+          />
         </div>
       </article>
       <div id="toast" class="toast">수정 완료</div>
