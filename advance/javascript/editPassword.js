@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => {
         toast.style.display = "none";
       }, 500);
-      window.location.href = "/page/post.html";
+      window.location.href = "/page/posts.html";
     }, 2000);
   });
   validateInputs();

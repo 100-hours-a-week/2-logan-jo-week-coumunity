@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   submitButton.addEventListener("click", () => {
-    window.location.href = "/page/post.html";
+    window.location.href = "/page/posts.html";
   });
 
   changeImageButton.addEventListener("click", function () {

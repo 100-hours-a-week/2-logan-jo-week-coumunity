@@ -37,6 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
       errorMessage.textContent = "*제목, 내용을 모두 입력해주세요";
       return;
     }
-    window.location.href = "post.html";
+    window.location.href = "posts.html";
   });
 });
