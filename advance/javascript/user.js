@@ -7,6 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const profileImage = document.getElementById("profile-image");
   const changeImageButton = document.getElementById("change-image-button");
   const submitButton = document.getElementById("submit-button");
+  const deleteUserButton = document.getElementById("delete-user");
+  const deleteModal = document.getElementById("delete-modal");
+  const confirmDeleteButton = document.getElementById("confirm-delete");
+  const cancelDeleteButton = document.getElementById("cancel-delete");
 
   editButton.addEventListener("click", function () {
     const nicknameValue = nicknameInput.value.trim();
@@ -49,5 +53,17 @@ document.addEventListener("DOMContentLoaded", function () {
       };
       reader.readAsDataURL(file);
     }
+  });
+
+  deleteUserButton.addEventListener("click", function () {
+    deleteModal.style.display = "flex";
+  });
+
+  confirmDeleteButton.addEventListener("click", function () {
+    window.location.href = "../../index.html";
+  });
+
+  cancelDeleteButton.addEventListener("click", function () {
+    deleteModal.style.display = "none";
   });
 });
