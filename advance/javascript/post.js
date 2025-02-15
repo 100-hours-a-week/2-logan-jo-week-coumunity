@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       document.getElementById("post-title").textContent = post.title;
       document.getElementById("post-author").textContent = post.author;
       document.getElementById("post-date").textContent = post.createdAt;
-      document.getElementById("post-image").src = post.image;
+      document.getElementById("post-image").src = post.authorLogo;
+      document.getElementById("post-content").textContent = post.content;
       document.getElementById("post-likes-count").textContent = `${formatLikes(
         post.likes
       )}`;
@@ -38,6 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.error("Error loading post:", error);
   }
 
+  const editButton = document.getElementById("post-edit-button");
   const deleteButton = document.getElementById("post-delete-button");
   const deleteModal = document.getElementById("delete-modal");
   const modalTitle = document.getElementById("delete-modal-title");
@@ -63,6 +65,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       commentButton.style.backgroundColor = "#aca0e8";
     }
   }
+  editButton.addEventListener("click", function () {
+    window.location.href = "editPost.html?id=" + postId;
+  });
 
   commentArea.addEventListener("input", checkComment);
   checkComment();
