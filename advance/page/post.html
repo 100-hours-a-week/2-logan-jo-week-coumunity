@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/post.css" />
+    <link rel="stylesheet" href="../index.css" />
+    <title>Post Detail</title>
+  </head>
+  <body>
+    <section class="post-main">
+      <header class="header">
+        <div class="header-container">
+          <img
+            id="before-arrow"
+            src="/images/before-arrow.png"
+            alt="before-arrow"
+            onclick="window.history.back()"
+          />
+          <span>아무 말 대잔치</span>
+          <img id="logo" src="/images/logo.png" alt="logo" />
+          <ul id="user-menu" class="user-menu">
+            <li><a href="user.html">회원정보 수정</a></li>
+            <li><a href="editPassword.html">비밀번호 변경</a></li>
+            <li><a href="../index.html">로그아웃</a></li>
+          </ul>
+        </div>
+      </header>
+      <article class="post-container">
+        <h2 id="post-title" class="title">제목1</h2>
+        <div class="title-items-container">
+          <div class="left">
+            <img
+              id="post-image"
+              class="author-logo"
+              src="/images/logo.png"
+              alt="logo"
+            />
+            <span id="post-author">작성자</span>
+            <span id="post-date">2025-02-15</span>
+          </div>
+          <div class="right">
+            <button id="post-edit-button" class="edit-button">수정</button>
+            <button id="post-delete-button" class="edit-button">삭제</button>
+          </div>
+        </div>
+        <div id="delete-modal" class="modal" style="display: none">
+          <div class="modal-content">
+            <h2 id="delete-modal-title" class="modal-title">
+              게시글을 삭제하시겠습니까?
+            </h2>
+            <p class="modal-text">작성된 게시글과 댓글은 삭제됩니다.</p>
+            <button id="cancel-delete" class="modal-button">취소</button>
+            <button id="confirm-delete" class="modal-button">확인</button>
+          </div>
+        </div>
+        <div class="post-line"></div>
+        <div class="post-content">
+          <div class="main-image"></div>
+          <p id="post-content">게시글 내용</p>
+          <div class="likes-container">
+            <div id="post-likes" class="likes-item">
+              <p id="post-likes-count">123</p>
+              <p>좋아요</p>
+            </div>
+            <div class="likes-item" style="cursor: auto">
+              <p id="post-views">123</p>
+              <p>조회수</p>
+            </div>
+            <div class="likes-item" style="cursor: auto">
+              <p id="post-comments">123</p>
+              <p>댓글</p>
+            </div>
+          </div>
+        </div>
+        <div class="post-line"></div>
+        <textarea
+          name="comment"
+          id="comment"
+          placeholder="댓글을 남겨주세요!"
+        ></textarea>
+        <div class="post-line"></div>
+        <button id="comment-button">댓글 등록</button>
+        <div class="comment-container">
+          <div id="first-comment" class="comment-item">
+            <div class="comment-item-header">
+              <img class="author-logo" src="/images/logo.png" alt="logo" />
+              <span class="comment-item-author">작성자</span>
+              <span class="comment-item-date">2025-02-15</span>
+            </div>
+            <div class="comment-item-content">
+              <p id="comment-text">댓글 내용1</p>
+            </div>
+            <div class="comment-edit-container">
+              <button id="comment-edit-button" class="edit-button">수정</button>
+              <button id="comment-delete-button" class="edit-button">
+                삭제
+              </button>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-item-header">
+              <img class="author-logo" src="/images/logo.png" alt="logo" />
+              <span class="comment-item-author">작성자</span>
+              <span class="comment-item-date">2025-02-15</span>
+            </div>
+            <div class="comment-item-content">
+              <p>댓글 내용2</p>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-item-header">
+              <img class="author-logo" src="/images/logo.png" alt="logo" />
+              <span class="comment-item-author">작성자</span>
+              <span class="comment-item-date">2025-02-15</span>
+            </div>
+            <div class="comment-item-content">
+              <p>댓글 내용3</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+    <script src="../javascript/userMenu.js"></script>
+    <script src="../javascript/post.js"></script>
+  </body>
+</html>

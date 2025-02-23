@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Posts Page</title>
+    <link rel="stylesheet" href="../css/posts.css" />
+    <link rel="stylesheet" href="../index.css" />
+  </head>
+  <body>
+    <section class="post-main">
+      <header class="header">
+        <div class="header-container">
+          <span>아무 말 대잔치</span>
+          <img id="logo" src="/images/logo.png" alt="logo" />
+          <ul id="user-menu" class="user-menu">
+            <li><a href="user.html">회원정보 수정</a></li>
+            <li><a href="editPassword.html">비밀번호 변경</a></li>
+            <li><a href="../index.html">로그아웃</a></li>
+          </ul>
+        </div>
+      </header>
+      <article class="post-container">
+        <h2 class="title">
+          안녕하세요,<br />
+          아무말 대잔치 <span class="bold">게시판</span> 입니다.
+        </h2>
+        <div style="width: 100%; display: flex; justify-content: flex-end">
+          <button
+            class="write-button"
+            id="write-button"
+            onclick="window.location.href = 'makePost.html'"
+          >
+            게시글 작성
+          </button>
+        </div>
+        <div id="posts-list" class="posts-list"></div>
+      </article>
+    </section>
+    <script src="../javascript/posts.js"></script>
+    <script src="../javascript/userMenu.js"></script>
+  </body>
+</html>
