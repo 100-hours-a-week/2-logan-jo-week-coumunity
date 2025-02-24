@@ -59,6 +59,10 @@
                 (user) => user.email === email && user.password === password
               );
               if (matchedUser) {
+                document.cookie =
+                  "user=" +
+                  encodeURIComponent(JSON.stringify(matchedUser)) +
+                  "; path=/; max-age=3600";
                 window.location.href = "page/posts.html";
               } else {
                 alert("이메일 또는 비밀번호가 일치하지 않습니다.");
