@@ -21,7 +21,7 @@ if (userCookie) {
     }
   } catch (e) {
     console.log(err);
-    window.location.href = "../index.html";
+    window.location.href = "index.html";
   }
 }
 

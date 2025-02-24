@@ -4,13 +4,13 @@
     "email": "rjsgml771@naver.com",
     "password": "Rjsgml115?",
     "nickname": "logan",
-    "profile_image": "/images/logo2.png"
+    "profile_image": "/public/images/logo2.png"
   },
   {
     "id": 2,
     "email": "example@naver.com",
     "password": "Example123?",
     "nickname": "example",
-    "profile_image": "/images/logo.png"
+    "profile_image": "/public/images/logo.png"
   }
 ]

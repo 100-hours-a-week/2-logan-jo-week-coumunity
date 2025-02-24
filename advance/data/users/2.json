@@ -3,5 +3,5 @@
   "email": "example@naver.com",
   "password": "Example123?",
   "nickname": "example",
-  "profile_image": "/images/logo.png"
+  "profile_image": "public/images/logo.png"
 }
