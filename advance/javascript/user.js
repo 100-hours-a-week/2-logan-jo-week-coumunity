@@ -1,3 +1,5 @@
+import { getCookie } from "./userMenu.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const nicknameInput = document.getElementById("nickname");
   const errorMessage = document.getElementById("error-message");
@@ -11,6 +13,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const deleteModal = document.getElementById("delete-modal");
   const confirmDeleteButton = document.getElementById("confirm-delete");
   const cancelDeleteButton = document.getElementById("cancel-delete");
+  const emailText = document.getElementById("email-text");
+
+  const user = getCookie("user");
+  let userInfo;
+  if (user) {
+    try {
+      userInfo = JSON.parse(user);
+      emailText.textContent = userInfo.email;
+      nicknameInput.value = userInfo.nickname;
+      profileImage.src = userInfo.profile_image;
+    } catch (e) {
+      console.log(e);
+      window.location.href = "/index.html";
+    }
+  }
 
   editButton.addEventListener("click", function () {
     const nicknameValue = nicknameInput.value.trim();
@@ -19,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
       errorMessage.textContent = "*닉네임을 입력해주세요";
     } else if (nicknameValue.length < 2 || nicknameValue.length > 10) {
       errorMessage.textContent = "*닉네임은 최대 10자 까지 작성 가능합니다.";
-    } else if (nicknameValue === "스타트업코드") {
+    } else if (nicknameValue === userInfo.nickname) {
       errorMessage.textContent = "*중복된 닉네임 입니다.";
     } else {
       errorMessage.textContent = "";
