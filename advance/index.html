@@ -47,11 +47,30 @@
           }
         }
         function handleSubmit() {
-          if (errorMessage.textContent === "") {
-            emailInput.value = "";
-            passwordInput.value = "";
-            window.location.href = "page/posts.html";
-          }
+          const email = emailInput.value;
+          const password = passwordInput.value;
+
+          fetch("../data/users.json")
+            .then((response) => {
+              return response.json();
+            })
+            .then((users) => {
+              const matchedUser = users.find(
+                (user) => user.email === email && user.password === password
+              );
+              if (matchedUser) {
+                window.location.href = "page/posts.html";
+              } else {
+                alert("이메일 또는 비밀번호가 일치하지 않습니다.");
+              }
+            })
+            .catch((error) => {
+              console.log("Error: ", error);
+            })
+            .finally(() => {
+              emailInput.value = "";
+              passwordInput.value = "";
+            });
         }
         emailInput.addEventListener("input", validateInputs);
         emailInput.addEventListener("keypress", function (event) {
