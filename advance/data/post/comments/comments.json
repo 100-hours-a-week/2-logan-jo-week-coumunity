@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "postId": 1,
+    "userId": 1,
+    "author": "logan",
+    "author_image": "/public/images/logo2.png",
+    "content": "This is a comment",
+    "createdAt": "2021-01-01T00:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "postId": 1,
+    "userId": 2,
+    "author": "example",
+    "author_image": "/public/images/logo.png",
+    "content": "This is another comment",
+    "createdAt": "2021-01-01T00:00:00.000Z"
+  },
+  {
+    "id": 3,
+    "postId": 1,
+    "userId": 2,
+    "author": "example",
+    "author_image": "/public/images/logo.png",
+    "content": "This is another comment",
+    "createdAt": "2021-01-01T00:00:00.000Z"
+  },
+  {
+    "id": 4,
+    "postId": 2,
+    "userId": 1,
+    "author": "logan",
+    "author_image": "/public/images/logo2.png",
+    "content": "This is a comment",
+    "createdAt": "2021-01-01T00:00:00.000Z"
+  },
+  {
+    "id": 5,
+    "postId": 2,
+    "userId": 2,
+    "author": "example",
+    "author_image": "/public/images/logo.png",
+    "content": "This is another comment",
+    "createdAt": "2021-01-01T00:00:00.000Z"
+  },
+  {
+    "id": 6,
+    "postId": 3,
+    "userId": 2,
+    "author": "example",
+    "author_image": "/public/images/logo.png",
+    "content": "This is another comment",
+    "createdAt": "2021-01-01T00:00:00.000Z"
+  }
+]
