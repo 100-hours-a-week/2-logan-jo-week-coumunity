@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   } catch (error) {
     console.log("Error Comments:", error);
   }
-
+  const postEditButton = document.getElementById("post-edit-button");
   const deleteButton = document.getElementById("post-delete-button");
   const deleteModal = document.getElementById("delete-modal");
   const modalTitle = document.getElementById("delete-modal-title");
@@ -156,6 +156,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       likesItems.style.backgroundColor = "#aca0e8";
       likesItems.style.color = "#fff";
     }
+  });
+  postEditButton.addEventListener("click", function () {
+    window.location.href = `editPost.html?id=${postId}`;
   });
 
   deleteButton.addEventListener("click", function () {
