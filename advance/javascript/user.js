@@ -1,4 +1,4 @@
-import { getCookie } from "./userMenu.js";
+import { getCookie } from "../util/cookie.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const nicknameInput = document.getElementById("nickname");

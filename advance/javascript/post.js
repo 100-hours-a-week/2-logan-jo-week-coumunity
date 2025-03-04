@@ -1,4 +1,4 @@
-import { getCookie } from "./userMenu.js";
+import { getCookie } from "../util/cookie.js";
 import { formatLikes } from "../util/likes.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
