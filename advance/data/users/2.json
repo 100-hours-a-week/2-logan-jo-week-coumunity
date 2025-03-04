@@ -1,0 +1,7 @@
+{
+  "id": 2,
+  "email": "example@naver.com",
+  "password": "Example123?",
+  "nickname": "example",
+  "profile_image": "public/images/logo.png"
+}
