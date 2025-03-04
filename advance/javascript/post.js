@@ -1,4 +1,5 @@
 import { getCookie } from "./userMenu.js";
+import { formatLikes } from "../util/likes.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
   const urlParams = new URLSearchParams(window.location.search);
@@ -6,14 +7,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   const userCookie = getCookie("user");
   const user = JSON.parse(userCookie);
 
-  function formatLikes(likes) {
-    if (likes >= 1000 && likes < 1000000) {
-      return (likes / 1000).toFixed(0) + "k";
-    } else if (likes >= 1000000) {
-      return (likes / 1000000).toFixed(0) + "M";
-    }
-    return likes;
-  }
   let post = null;
 
   try {

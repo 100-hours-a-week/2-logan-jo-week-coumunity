@@ -1,13 +1,6 @@
-document.addEventListener("DOMContentLoaded", async function () {
-  function formatLikes(likes) {
-    if (likes >= 1000 && likes < 1000000) {
-      return (likes / 1000).toFixed(0) + "k";
-    } else if (likes >= 1000000) {
-      return (likes / 1000000).toFixed(0) + "M";
-    }
-    return likes;
-  }
+import { formatLikes } from "../util/likes.js";
 
+document.addEventListener("DOMContentLoaded", async function () {
   try {
     const response = await fetch("../data/posts.json");
     const data = await response.json();
