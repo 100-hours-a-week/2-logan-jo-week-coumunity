@@ -1,4 +1,5 @@
 import { formatLikes } from "../util/likes.js";
+import { formatDate } from "../util/date.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
   try {
@@ -9,16 +10,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     data.posts.map((post) => {
       const postElement = document.createElement("div");
       postElement.className = "post-item";
-
-      const date = new Date(post.createdAt);
-      const formattedDate = `${date.getFullYear()}-${String(
-        date.getMonth() + 1
-      ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")} ${String(
-        date.getHours()
-      ).padStart(2, "0")}:${String(date.getMinutes()).padStart(
-        2,
-        "0"
-      )}:${String(date.getSeconds()).padStart(2, "0")}`;
 
       postElement.innerHTML = `
             <a href="post.html?id=${post.id}">
@@ -37,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <span>조회수 ${formatLikes(post.views)}</span>
                   </div>
                 </div>
-                <span class="post-date">${formattedDate}</span>
+                <span class="post-date">${formatDate(post.createdAt)}</span>
               </div>
               <div class="post-line"></div>
               <div class="post-header-left">

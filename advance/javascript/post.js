@@ -1,5 +1,6 @@
 import { getCookie } from "../util/cookie.js";
 import { formatLikes } from "../util/likes.js";
+import { formatDate } from "../util/date.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
   const urlParams = new URLSearchParams(window.location.search);
@@ -17,7 +18,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (post) {
       document.getElementById("post-title").textContent = post.title;
       document.getElementById("post-author").textContent = post.author;
-      document.getElementById("post-date").textContent = post.createdAt;
+      document.getElementById("post-date").textContent = `${formatDate(
+        post.createdAt
+      )}`;
       document.getElementById("post-image").src = post.authorLogo;
       document.getElementById("post-content").textContent = post.content;
       document.getElementById("post-likes-count").textContent = `${formatLikes(
@@ -55,7 +58,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         <div class="comment-item-header">
           <img class="author-logo" src=${comment.author_image} alt="logo" />
           <span class="comment-item-author">${comment.author}</span>
-          <span class="comment-item-date">${comment.createdAt}</span>
+          <span class="comment-item-date">${formatDate(
+            comment.createdAt
+          )}</span>
         </div>
         <div class="comment-item-content">
           <p id="comment-text-${comment.id}">${comment.content}</p>

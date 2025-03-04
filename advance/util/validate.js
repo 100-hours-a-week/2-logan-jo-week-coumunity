@@ -16,7 +16,7 @@ export const validateNickname = (nickname) => {
   try {
     const userInfo = JSON.parse(user);
 
-    return userInfo.nickname !== nickname;
+    return userInfo.nickname === nickname;
   } catch (e) {
     console.log(e);
   }

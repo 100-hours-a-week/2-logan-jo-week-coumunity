@@ -167,17 +167,6 @@ class HeaderComponent extends HTMLElement {
       window.location.href = "index.html";
     }
   }
-
-  // getCookie(name) {
-  //   const cookies = document.cookie.split(";");
-  //   for (let cookie of cookies) {
-  //     const [cookieName, cookieValue] = cookie.split("=");
-  //     if (name === cookieName.trim()) {
-  //       return decodeURIComponent(cookieValue);
-  //     }
-  //   }
-  //   return null;
-  // }
 }
 
 customElements.define("header-component", HeaderComponent);
