@@ -1,19 +1,11 @@
+import { validateEmail, validatePassword } from "../util/validate.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
   const errorMessage = document.getElementById("error-message");
   const loginButton = document.getElementById("login-submit");
 
-  function validateEmail(email) {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailPattern.test(email);
-  }
-
-  function validatePassword(password) {
-    const passwordPattern =
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
-    return passwordPattern.test(password);
-  }
   function validateInputs() {
     const emailValid = validateEmail(emailInput.value);
     const passwordValid = validatePassword(passwordInput.value);
