@@ -1,3 +1,5 @@
+import { getCookie } from "../util/cookie.js";
+
 class HeaderComponent extends HTMLElement {
   static get observedAttributes() {
     return ["back", "menu"];
@@ -150,7 +152,7 @@ class HeaderComponent extends HTMLElement {
   }
 
   loadUserProfile() {
-    const userCookie = this.getCookie("user");
+    const userCookie = getCookie("user");
     if (userCookie) {
       try {
         const user = JSON.parse(userCookie);
@@ -166,16 +168,16 @@ class HeaderComponent extends HTMLElement {
     }
   }
 
-  getCookie(name) {
-    const cookies = document.cookie.split(";");
-    for (let cookie of cookies) {
-      const [cookieName, cookieValue] = cookie.split("=");
-      if (name === cookieName.trim()) {
-        return decodeURIComponent(cookieValue);
-      }
-    }
-    return null;
-  }
+  // getCookie(name) {
+  //   const cookies = document.cookie.split(";");
+  //   for (let cookie of cookies) {
+  //     const [cookieName, cookieValue] = cookie.split("=");
+  //     if (name === cookieName.trim()) {
+  //       return decodeURIComponent(cookieValue);
+  //     }
+  //   }
+  //   return null;
+  // }
 }
 
 customElements.define("header-component", HeaderComponent);
