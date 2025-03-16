@@ -1,4 +1,5 @@
-import { getCookie } from "./userMenu.js";
+import { getCookie } from "../util/cookie.js";
+import { validateNickname } from "../util/validate.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const nicknameInput = document.getElementById("nickname");
@@ -36,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
       errorMessage.textContent = "*닉네임을 입력해주세요";
     } else if (nicknameValue.length < 2 || nicknameValue.length > 10) {
       errorMessage.textContent = "*닉네임은 최대 10자 까지 작성 가능합니다.";
-    } else if (nicknameValue === userInfo.nickname) {
+    } else if (validateNickname(nicknameValue)) {
       errorMessage.textContent = "*중복된 닉네임 입니다.";
     } else {
       errorMessage.textContent = "";

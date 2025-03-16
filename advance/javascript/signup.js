@@ -1,3 +1,9 @@
+import {
+  validateEmail,
+  validatePassword,
+  validateNickname,
+} from "../util/validate.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const fileInput = document.getElementById("file-input");
   const profileImage = document.getElementById("profile-image");
@@ -26,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
       };
       reader.readAsDataURL(file);
     } else {
-      profileImage.src = "../images/logo.png";
+      profileImage.src = "/public/images/logo.png";
     }
   });
 
@@ -40,35 +46,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function validateEmail() {
+  function EmailMessage() {
     const email = emailInput.value.trim();
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (!email) {
       emailError.textContent = "*이메일을 입력해주세요";
-      return false;
-    } else if (!emailPattern.test(email)) {
+    } else if (!validateEmail(email)) {
       emailError.textContent =
         "*올바른 주소 형식을 입력해주세요.(예: example@example.com)";
-      return false;
     } else if (email === "startupcode@gmail.com") {
       emailError.textContent = "*중복된 이메일입니다.";
-      return false;
     } else {
       emailError.textContent = "";
-      return true;
     }
   }
 
-  function validatePassword() {
+  function PasswordMessage() {
     const password = passwordInput.value;
-    const passwordPattern =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
 
     if (!password) {
       passwordError.textContent = "*비밀번호를 입력해주세요";
       return false;
-    } else if (!passwordPattern.test(password)) {
+    } else if (!validatePassword(password)) {
       passwordError.textContent =
         "*비밀번호는 8자 이상, 20자 이하이며 대문자, 소문자, 숫자, 특수문자를 각각 1개 이상 포함해야 합니다.";
       return false;
@@ -94,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function validateNickname() {
+  function nicknameMessage() {
     const nickname = nicknameInput.value.trim();
 
     if (!nickname) {
@@ -106,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (nickname.includes(" ")) {
       nicknameError.textContent = "*띄어쓰기를 없애주세요";
       return false;
-    } else if (nickname === "스타트업코드") {
+    } else if (validateNickname(nickname)) {
       nicknameError.textContent = "*중복된 닉네임입니다.";
       return false;
     } else {
@@ -117,10 +116,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function validateForm() {
     const isImageValid = validateImage();
-    const isEmailValid = validateEmail();
-    const isPasswordValid = validatePassword();
+    const isEmailValid = EmailMessage();
+    const isPasswordValid = PasswordMessage();
     const isPasswordCheckValid = validatePasswordCheck();
-    const isNicknameValid = validateNickname();
+    const isNicknameValid = nicknameMessage();
 
     return (
       isImageValid &&

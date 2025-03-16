@@ -1,3 +1,5 @@
+import { validatePassword } from "../util/validate";
+
 document.addEventListener("DOMContentLoaded", function () {
   const passwordInput = document.getElementById("password");
   const checkPasswordInput = document.getElementById("check-password");
@@ -5,12 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const errorCheckMessage = document.getElementById("check-password-message");
   const loginButton = document.getElementById("login-submit");
   const toast = document.getElementById("toast");
-
-  function validatePassword(password) {
-    const passwordPattern =
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
-    return passwordPattern.test(password);
-  }
 
   function validateInputs() {
     const passwordValid = validatePassword(passwordInput.value);
