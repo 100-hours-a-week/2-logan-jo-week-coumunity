@@ -51,13 +51,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!email) {
       emailError.textContent = "*이메일을 입력해주세요";
+      return false;
     } else if (!validateEmail(email)) {
       emailError.textContent =
         "*올바른 주소 형식을 입력해주세요.(예: example@example.com)";
-    } else if (email === "startupcode@gmail.com") {
-      emailError.textContent = "*중복된 이메일입니다.";
+      return false;
     } else {
       emailError.textContent = "";
+      return true;
     }
   }
 
@@ -105,9 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (nickname.includes(" ")) {
       nicknameError.textContent = "*띄어쓰기를 없애주세요";
       return false;
-    } else if (validateNickname(nickname)) {
-      nicknameError.textContent = "*중복된 닉네임입니다.";
-      return false;
     } else {
       nicknameError.textContent = "";
       return true;
@@ -149,9 +147,36 @@ document.addEventListener("DOMContentLoaded", function () {
   fileInput.addEventListener("change", toggleEditButton);
 
   editButton.addEventListener("click", function () {
-    if (validateForm()) {
-      alert("회원가입이 완료되었습니다.");
-      window.location.href = "../../index.html";
-    }
+    fetch("http://localhost:8080/users/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: emailInput.value,
+        password: passwordInput.value,
+        nickname: nicknameInput.value,
+        logoImage: profileImage.src.substring(0, 254),
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((err) => {
+            throw new Error(err.message);
+          });
+        }
+      })
+      .then(() => {
+        alert("회원가입이 완료되었습니다.");
+        window.location.href = "index.html";
+      })
+      .catch((error) => {
+        if (error.message.includes("이메일")) {
+          emailError.textContent = "*이미 사용중인 이메일입니다.";
+        }
+        if (error.message.includes("닉네임")) {
+          nicknameError.textContent = "*이미 사용중인 닉네임입니다.";
+        }
+      });
   });
 });
