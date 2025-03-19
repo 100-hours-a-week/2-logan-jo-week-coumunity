@@ -139,7 +139,10 @@ class HeaderComponent extends HTMLElement {
   updateMenuLogo() {
     if (!this.logo) return;
 
-    if (this.hasAttribute("menu")) {
+    if (
+      this.hasAttribute("menu") ||
+      window.location.pathname.includes("signup.html")
+    ) {
       this.logo.style.display = "none";
     } else {
       this.logo.style.display = "block";
@@ -164,7 +167,12 @@ class HeaderComponent extends HTMLElement {
         window.location.href = "index.html";
       }
     } else {
-      window.location.href = "index.html";
+      if (window.location.pathname.includes("singup.html")) {
+        return;
+      } else {
+        console.error("Error parsing user cookie", err);
+        window.location.href = "index.html";
+      }
     }
   }
 }
