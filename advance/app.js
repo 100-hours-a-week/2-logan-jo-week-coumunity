@@ -7,6 +7,7 @@ export const routes = {
   "/login": "page/login.html",
   "/signup": "page/signup.html",
   "/user": "page/user.html",
+  "/editPassword": "page/editPassword.html",
   "/posts": "page/posts.html",
   "/posts/write": "/page/makePost.html",
 };
