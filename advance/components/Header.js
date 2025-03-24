@@ -1,4 +1,5 @@
-import { getCookie } from "../util/cookie.js";
+import { getUser } from "../api/userApi.js";
+import { navigateTo } from "../util/navigate.js";
 
 class HeaderComponent extends HTMLElement {
   static get observedAttributes() {
@@ -84,9 +85,9 @@ class HeaderComponent extends HTMLElement {
           <span>아무 말 대잔치</span>
           <img id="logo" alt="logo" />
           <ul id="user-menu" class="user-menu">
-            <li><a href="user.html">회원정보 수정</a></li>
-            <li><a href="editPassword.html">비밀번호 변경</a></li>
-            <li><a href="index.html">로그아웃</a></li>
+            <li><a href="user">회원정보 수정</a></li>
+            <li><a href="editPassword">비밀번호 변경</a></li>
+            <li><a href="login">로그아웃</a></li>
           </ul>
         </div>
       </header>
@@ -154,24 +155,23 @@ class HeaderComponent extends HTMLElement {
       this.userMenu.style.display === "block" ? "none" : "block";
   }
 
-  loadUserProfile() {
-    const userCookie = getCookie("user");
-    if (userCookie) {
+  async loadUserProfile() {
+    if (
+      !(
+        window.location.pathname.includes("login") ||
+        window.location.pathname.includes("signup")
+      )
+    ) {
       try {
-        const user = JSON.parse(userCookie);
-        if (user.profile_image) {
-          this.logo.src = user.profile_image;
+        const user = await getUser();
+
+        if (user && user.logoImage) {
+          // DB가 배포되지 않아. 이미지의 url이 저장되지 않고 있음. 추후 배포과정에서 수정 필요
+          this.logo.src = "/public/images/logo.png";
         }
       } catch (err) {
-        console.error("Error parsing user cookie", err);
-        window.location.href = "index.html";
-      }
-    } else {
-      if (window.location.pathname.includes("singup.html")) {
-        return;
-      } else {
-        console.error("Error parsing user cookie", err);
-        window.location.href = "index.html";
+        console.error("로그인이 필요합니다.");
+        navigateTo("/login");
       }
     }
   }
