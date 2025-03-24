@@ -3,11 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styles/login.css" />
-    <link rel="stylesheet" href="../styles/global.css" />
-    <link rel="stylesheet" href="../styles/pretendard.css" />
+    <link rel="stylesheet" href="/styles/login.css" />
+    <link rel="stylesheet" href="/styles/global.css" />
     <title>Login</title>
-    <script type="module" src="/javascript/index.js"></script>
   </head>
   <body>
     <section class="main">
@@ -45,10 +43,13 @@
               class="login-submit"
               id="login-submit"
             />
-            <a href="signup.html" class="login-signup-link">회원가입</a>
+            <a href="/signup" class="login-signup-link">회원가입</a>
           </div>
         </article>
       </div>
     </section>
+    <script type="module" src="/components/Header.js"></script>
+    <script type="module" src="/javascript/login.js"></script>
+    <script type="module" src="../util/navigate.js"></script>
   </body>
 </html>
