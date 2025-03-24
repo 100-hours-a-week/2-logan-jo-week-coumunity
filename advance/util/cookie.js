@@ -1,9 +1,6 @@
-export function getCookie(name) {
-  const cookies = document.cookie.split(";");
-  for (let cookie of cookies) {
-    const cookieName = cookie.split("=");
-    if (name === cookieName[0].trim()) {
-      return decodeURIComponent(cookieName[1]);
-    }
-  }
+function getCookie(name) {
+  const matches = document.cookie.match(new RegExp(`(^|; )${name}=([^;]*)`));
+  return matches ? matches[2] : undefined;
 }
+
+export default getCookie;
