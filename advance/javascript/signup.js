@@ -148,12 +148,14 @@ validateForm();
 
 editButton.addEventListener("click", async function () {
   try {
-    const result = await signup(
+    console.log(fileInput.files[0]);
+    await signup(
       emailInput.value,
       passwordInput.value,
       nicknameInput.value,
       fileInput.files[0]
     );
+    alert("회원가입 성공!");
     navigateTo("/login");
   } catch (error) {
     if (error.message.includes("이메일")) {

@@ -29,7 +29,10 @@ try {
   console.error("Error loading error:", error);
 }
 
-if (post) renderPost(post);
+if (post) {
+  renderPost(post);
+  myPostCheck();
+}
 if (comments.length > 0) renderComments(comments, user);
 
 setupEventListeners(postId, post.likes);
@@ -39,7 +42,8 @@ function renderPost(post) {
   document.getElementById("post-title").textContent = post.title;
   document.getElementById("post-author").textContent = post.author;
   document.getElementById("post-date").textContent = formatDate(post.createdAt);
-  document.getElementById("post-image").src = post.authorLogo;
+  document.getElementById("post-image").src = post.authorImage;
+  document.getElementById("post-main-image").src = post.image;
   document.getElementById("post-content").textContent = post.content;
   document.getElementById("post-likes-count").textContent = formatLikes(
     post.likes
@@ -48,6 +52,15 @@ function renderPost(post) {
   document.getElementById("post-comments").textContent = formatLikes(
     post.comments
   );
+}
+
+function myPostCheck() {
+  const buttons = document.getElementById("post-buttons");
+  console.log(user.nickname, post.author);
+
+  if (user.nickname !== post.author) {
+    buttons.style.display = "none";
+  }
 }
 
 function renderComments(comments, user) {
@@ -61,8 +74,10 @@ function createCommentHTML(comment, user) {
   return `
     <div class="comment-item" id="${comment.id}">
       <div class="comment-item-header">
-        <img class="author-logo" src="${comment.author_image}" alt="logo" />
-        <span class="comment-item-author">${comment.author}</span>
+        <img class="author-logo" src="${
+          comment.userInfo.logoImage
+        }" alt="logo" />
+        <span class="comment-item-author">${comment.userInfo.nickname}</span>
         <span class="comment-item-date">${formatDate(comment.createdAt)}</span>
       </div>
       <div class="comment-item-content">

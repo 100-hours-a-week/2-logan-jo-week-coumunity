@@ -21,7 +21,7 @@ if (user) {
   try {
     emailText.textContent = user.email;
     nicknameInput.value = user.nickname;
-    profileImage.src = userInfo.profile_image;
+    profileImage.src = user.logoImage;
   } catch (e) {
     console.log(e);
   }
@@ -29,10 +29,7 @@ if (user) {
 
 const submit = async () => {
   try {
-    const response = await updateUser(
-      nicknameInput.value,
-      profileImage.src.substring(0, 254)
-    );
+    const response = await updateUser(nicknameInput.value, fileInput.files[0]);
 
     toast.style.display = "block";
     toast.style.opacity = 1;

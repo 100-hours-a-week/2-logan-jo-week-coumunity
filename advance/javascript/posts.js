@@ -33,7 +33,9 @@ try {
               </div>
               <div class="post-line"></div>
               <div class="post-header-left">
-                <img src="${post.authorLogo}" alt="profile" class="author-logo">
+                <img src="${
+                  post.authorImage
+                }" alt="profile" class="author-logo">
                 <span class="author-name">${post.author}</span>
               </div>
             </a>

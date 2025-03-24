@@ -166,8 +166,7 @@ class HeaderComponent extends HTMLElement {
         const user = await getUser();
 
         if (user && user.logoImage) {
-          // DB가 배포되지 않아. 이미지의 url이 저장되지 않고 있음. 추후 배포과정에서 수정 필요
-          this.logo.src = "/public/images/logo.png";
+          this.logo.src = user.logoImage;
         }
       } catch (err) {
         console.error("로그인이 필요합니다.");
