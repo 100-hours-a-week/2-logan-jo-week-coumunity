@@ -1,13 +1,14 @@
-import { apiRequest } from "./apiRequest.js";
+import { apiRequest, apiRequestFile } from "./apiRequest.js";
 
 export async function signup(email, password, nickname, logoImage) {
   try {
-    await apiRequest("/users/signup", "POST", {
-      email,
-      password,
-      nickname,
-      logoImage: logoImage.substring(0, 254),
-    });
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("nickname", nickname);
+    formData.append("logoImage", logoImage);
+
+    await apiRequestFile("/users/signup", "POST", formData);
   } catch (error) {
     throw error;
   }
@@ -32,13 +33,13 @@ export async function getUser() {
     throw error;
   }
 }
-export async function updateUser(nickname, logoImage) {
+export async function updateUser(nickname, logoImageFile) {
   try {
-    const response = await apiRequest("/users", "PATCH", {
-      nickname,
-      logoImage: logoImage.substring(0, 254),
-    });
+    const formData = new FormData();
+    formData.append("nickname", nickname);
+    formData.append("logoImage", logoImageFile);
 
+    const response = await apiRequestFile("/users", "PATCH", formData);
     return response;
   } catch (error) {
     throw error;

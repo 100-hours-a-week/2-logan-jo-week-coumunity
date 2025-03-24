@@ -1,4 +1,4 @@
-import { apiRequest } from "./apiRequest.js";
+import { apiRequest, apiRequestFile } from "./apiRequest.js";
 
 export async function getPostList() {
   try {
@@ -20,11 +20,12 @@ export async function getPost(id) {
 }
 export async function createPost(title, content, image) {
   try {
-    const response = await apiRequest("/posts", "POST", {
-      title,
-      content,
-      image,
-    });
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("image", image);
+
+    const response = await apiRequestFile("/posts", "POST", formData);
 
     return response;
   } catch (error) {
@@ -33,11 +34,14 @@ export async function createPost(title, content, image) {
 }
 export async function updatePost(id, title, content, image) {
   try {
-    const response = await apiRequest(`/posts/${id}`, "PATCH", {
-      title,
-      content,
-      image,
-    });
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    if (image) {
+      formData.append("image", image);
+    }
+
+    const response = await apiRequestFile(`/posts/${id}`, "PATCH", formData);
     return response;
   } catch (error) {
     throw error;
