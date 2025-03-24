@@ -1,18 +1,19 @@
 import { formatLikes } from "../util/likes.js";
 import { formatDate } from "../util/date.js";
+import { getPostList } from "../api/postApi.js";
 
-document.addEventListener("DOMContentLoaded", async function () {
-  try {
-    const response = await fetch("../data/posts.json");
-    const data = await response.json();
-    const postsContainer = document.getElementById("posts-list");
+try {
+  const response = await getPostList();
+  const data = response.data;
+  const postsContainer = document.getElementById("posts-list");
 
-    data.posts.map((post) => {
+  if (data.length > 0) {
+    data.map((post) => {
       const postElement = document.createElement("div");
       postElement.className = "post-item";
 
       postElement.innerHTML = `
-            <a href="post.html?id=${post.id}">
+            <a href="posts/${post.id}">
               <div class="post-header">
                 <h3 class="post-title">${
                   post.title.length > 26
@@ -40,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       postsContainer.appendChild(postElement);
     });
-  } catch (error) {
-    console.error("Error loading posts:", error);
   }
-});
+} catch (error) {
+  console.error(error);
+}
