@@ -92,3 +92,8 @@ body {
   line-height: 24px;
   font-weight: 400;
 }
+a {
+  text-decoration: none;
+  color: black;
+  margin-top: 10px;
+}

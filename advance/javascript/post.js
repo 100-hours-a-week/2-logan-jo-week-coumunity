@@ -1,39 +1,49 @@
-import { getCookie } from "../util/cookie.js";
 import { formatLikes } from "../util/likes.js";
 import { formatDate } from "../util/date.js";
+import { getUser } from "../api/userApi.js";
+import { getPost, deletePost } from "../api/postApi.js";
+import {
+  createComment,
+  getComments,
+  updateComment,
+  deleteComment,
+} from "../api/commentApi.js";
+import { navigateTo } from "../util/navigate.js";
 
-document.addEventListener("DOMContentLoaded", async function () {
-  const urlParams = new URLSearchParams(window.location.search);
-  const postId = parseInt(urlParams.get("id"));
-  const userCookie = getCookie("user");
-  const user = JSON.parse(userCookie);
+const path = window.location.pathname.split("/");
+const postId = path[path.length - 1];
 
-  let post = await fetchPost(postId);
-  if (post) renderPost(post);
+let user;
+let post;
+let comments;
 
-  let comments = await fetchComments(postId);
-  renderComments(comments, user);
+try {
+  user = await getUser();
 
-  setupEventListeners(postId, post.likes);
-  setCommentButtonDefault();
-});
+  let resPost = await getPost(postId);
+  post = await resPost.data;
 
-const fetchPost = async (postId) => {
-  try {
-    const response = await fetch("../data/posts.json");
-    const data = await response.json();
-    return data.posts.find((p) => p.id === postId) || null;
-  } catch (error) {
-    console.error("Error loading post:", error);
-    return null;
-  }
-};
+  let resComments = await getComments(postId);
+  comments = await resComments.data;
+} catch (error) {
+  console.error("Error loading error:", error);
+}
 
-const renderPost = (post) => {
+if (post) {
+  renderPost(post);
+  myPostCheck();
+}
+if (comments.length > 0) renderComments(comments, user);
+
+setupEventListeners(postId, post.likes);
+setCommentButtonDefault();
+
+function renderPost(post) {
   document.getElementById("post-title").textContent = post.title;
   document.getElementById("post-author").textContent = post.author;
   document.getElementById("post-date").textContent = formatDate(post.createdAt);
-  document.getElementById("post-image").src = post.authorLogo;
+  document.getElementById("post-image").src = post.authorImage;
+  document.getElementById("post-main-image").src = post.image;
   document.getElementById("post-content").textContent = post.content;
   document.getElementById("post-likes-count").textContent = formatLikes(
     post.likes
@@ -42,32 +52,32 @@ const renderPost = (post) => {
   document.getElementById("post-comments").textContent = formatLikes(
     post.comments
   );
-};
+}
 
-const fetchComments = async (postId) => {
-  try {
-    const response = await fetch("../data/post/comments/comments.json");
-    const data = await response.json();
-    return data.filter((comment) => comment.postId === postId);
-  } catch (error) {
-    console.error("Error loading comments:", error);
-    return [];
+function myPostCheck() {
+  const buttons = document.getElementById("post-buttons");
+  console.log(user.nickname, post.author);
+
+  if (user.nickname !== post.author) {
+    buttons.style.display = "none";
   }
-};
+}
 
-const renderComments = (comments, user) => {
+function renderComments(comments, user) {
   const commentContainer = document.getElementById("comment-container");
   commentContainer.innerHTML = comments
     .map((comment) => createCommentHTML(comment, user))
     .join("");
-};
+}
 
-const createCommentHTML = (comment, user) => {
+function createCommentHTML(comment, user) {
   return `
     <div class="comment-item" id="${comment.id}">
       <div class="comment-item-header">
-        <img class="author-logo" src="${comment.author_image}" alt="logo" />
-        <span class="comment-item-author">${comment.author}</span>
+        <img class="author-logo" src="${
+          comment.userInfo.logoImage
+        }" alt="logo" />
+        <span class="comment-item-author">${comment.userInfo.nickname}</span>
         <span class="comment-item-date">${formatDate(comment.createdAt)}</span>
       </div>
       <div class="comment-item-content">
@@ -75,24 +85,21 @@ const createCommentHTML = (comment, user) => {
       </div>
       ${comment.userId === user.id ? createCommentControls(comment.id) : ""}
     </div>`;
-};
+}
 
-const createCommentControls = (commentId) => {
+function createCommentControls(commentId) {
   return `
     <div class="comment-edit-container">
       <button class="comment-edit-button" data-id="${commentId}">수정</button>
       <button class="comment-delete-button" data-id="${commentId}">삭제</button>
     </div>`;
-};
+}
 
-const setupEventListeners = (postId, like) => {
+function setupEventListeners(postId, like) {
   document.body.addEventListener("click", handleBodyClick);
   document
     .getElementById("post-edit-button")
-    .addEventListener(
-      "click",
-      () => (window.location.href = `editPost.html?id=${postId}`)
-    );
+    .addEventListener("click", () => navigateTo(`/posts/${postId}/edit`));
   document
     .getElementById("post-delete-button")
     .addEventListener("click", () => toggleModal("delete-modal", true));
@@ -101,24 +108,29 @@ const setupEventListeners = (postId, like) => {
     .addEventListener("click", () => toggleModal("delete-modal", false));
   document
     .getElementById("confirm-delete")
-    .addEventListener("click", () => deletePost());
+    .addEventListener("click", () => deletePostClick());
   setupLikeButton(like);
-};
+}
 
-const handleBodyClick = (event) => {
+function handleBodyClick(event) {
   const target = event.target;
   if (target.classList.contains("comment-delete-button"))
-    deleteComment(target.dataset.id);
+    deleteCommentClick(target.dataset.id);
   if (target.classList.contains("comment-edit-button"))
     editComment(target.dataset.id);
-};
+}
 
-const deleteComment = (commentId) => {
+async function deleteCommentClick(commentId) {
   console.log(`댓글 삭제: ${commentId}`);
-  document.getElementById(commentId)?.remove();
-};
+  try {
+    await deleteComment(postId, commentId);
+    location.reload();
+  } catch (error) {
+    alert(error.message);
+  }
+}
 
-const editComment = (commentId) => {
+function editComment(commentId) {
   console.log(`댓글 수정: ${commentId}`);
   const commentText = document.getElementById(`comment-text-${commentId}`);
   const commentArea = document.getElementById("comment");
@@ -129,24 +141,35 @@ const editComment = (commentId) => {
   commentButton.style.backgroundColor = "#aca0e8";
   commentButton.style.cursor = "pointer";
 
-  commentButton.onclick = function () {
-    commentText.textContent = commentArea.value;
-    commentArea.value = "";
-    setCommentButtonDefault();
+  commentButton.onclick = async function () {
+    try {
+      await updateComment(postId, commentId, commentArea.value);
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      commentText.textContent = commentArea.value;
+      commentArea.value = "";
+      setCommentButtonDefault();
+    }
   };
-};
+}
 
-const toggleModal = (modalId, isVisible) => {
+function toggleModal(modalId, isVisible) {
   document.getElementById(modalId).style.display = isVisible ? "flex" : "none";
-};
+}
 
-const deletePost = () => {
-  console.log("게시글이 삭제되었습니다.");
-  toggleModal("delete-modal", false);
-  window.location.href = "posts.html";
-};
+async function deletePostClick() {
+  try {
+    await deletePost(postId);
 
-const setupLikeButton = (like) => {
+    toggleModal("delete-modal", false);
+    navigateTo("/posts");
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+function setupLikeButton(like) {
   const likesItems = document.getElementById("post-likes");
   const likesCount = document.getElementById("post-likes-count");
   let isLiked = false;
@@ -159,9 +182,9 @@ const setupLikeButton = (like) => {
     likesItems.style.backgroundColor = isLiked ? "#aca0e8" : "#d9d9d9";
     likesItems.style.color = isLiked ? "#fff" : "#000";
   });
-};
+}
 
-const setCommentButtonDefault = () => {
+function setCommentButtonDefault() {
   const commentArea = document.getElementById("comment");
   const commentButton = document.getElementById("comment-button");
 
@@ -178,10 +201,16 @@ const setCommentButtonDefault = () => {
       : "not-allowed";
   };
 
-  commentButton.onclick = function () {
+  commentButton.onclick = async function () {
     if (!commentArea.value.trim()) return;
-    console.log("새 댓글 등록: ", commentArea.value);
-    commentArea.value = "";
-    setCommentButtonDefault();
+    try {
+      await createComment(postId, commentArea.value);
+      location.reload();
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      commentArea.value = "";
+      setCommentButtonDefault();
+    }
   };
-};
+}

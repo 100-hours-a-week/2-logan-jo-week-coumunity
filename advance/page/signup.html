@@ -4,15 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SignIn Page</title>
-    <link rel="stylesheet" href="../styles/signin.css" />
-    <link rel="stylesheet" href="../styles/global.css" />
-    <link rel="stylesheet" href="../styles/pretendard.css" />
-    <script type="module" src="/components/Header.js"></script>
-    <script type="module" src="../javascript/signup.js"></script>
+    <link rel="stylesheet" href="/styles/signup.css" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <script type="module" src="/javascript/signup.js"></script>
   </head>
   <body>
     <section class="main">
-      <header-component back></header-component>
+      <header-component back menu></header-component>
       <article class="signup">
         <div class="user-edit-container">
           <h1 class="title">회원가입</h1>
@@ -78,7 +76,7 @@
             type="button"
             value="회원가입"
           />
-          <p id="signin">로그인하러 가기</p>
+          <a href="/" id="signin">로그인하러 가기</a>
         </div>
       </article>
       <div id="toast" class="toast">수정 완료</div>

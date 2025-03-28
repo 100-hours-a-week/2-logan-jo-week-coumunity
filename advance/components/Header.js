@@ -1,4 +1,5 @@
-import { getCookie } from "../util/cookie.js";
+import { getUser } from "../api/userApi.js";
+import { navigateTo } from "../util/navigate.js";
 
 class HeaderComponent extends HTMLElement {
   static get observedAttributes() {
@@ -84,9 +85,9 @@ class HeaderComponent extends HTMLElement {
           <span>아무 말 대잔치</span>
           <img id="logo" alt="logo" />
           <ul id="user-menu" class="user-menu">
-            <li><a href="user.html">회원정보 수정</a></li>
-            <li><a href="editPassword.html">비밀번호 변경</a></li>
-            <li><a href="index.html">로그아웃</a></li>
+            <li><a href="user">회원정보 수정</a></li>
+            <li><a href="editPassword">비밀번호 변경</a></li>
+            <li><a href="login">로그아웃</a></li>
           </ul>
         </div>
       </header>
@@ -139,7 +140,10 @@ class HeaderComponent extends HTMLElement {
   updateMenuLogo() {
     if (!this.logo) return;
 
-    if (this.hasAttribute("menu")) {
+    if (
+      this.hasAttribute("menu") ||
+      window.location.pathname.includes("signup.html")
+    ) {
       this.logo.style.display = "none";
     } else {
       this.logo.style.display = "block";
@@ -151,20 +155,23 @@ class HeaderComponent extends HTMLElement {
       this.userMenu.style.display === "block" ? "none" : "block";
   }
 
-  loadUserProfile() {
-    const userCookie = getCookie("user");
-    if (userCookie) {
+  async loadUserProfile() {
+    if (
+      !(
+        window.location.pathname.includes("login") ||
+        window.location.pathname.includes("signup")
+      )
+    ) {
       try {
-        const user = JSON.parse(userCookie);
-        if (user.profile_image) {
-          this.logo.src = user.profile_image;
+        const user = await getUser();
+
+        if (user && user.logoImage) {
+          this.logo.src = user.logoImage;
         }
       } catch (err) {
-        console.error("Error parsing user cookie", err);
-        window.location.href = "index.html";
+        console.error("로그인이 필요합니다.");
+        navigateTo("/login");
       }
-    } else {
-      window.location.href = "index.html";
     }
   }
 }

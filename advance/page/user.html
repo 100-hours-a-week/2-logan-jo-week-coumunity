@@ -4,15 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Profile</title>
-    <link rel="stylesheet" href="../styles/user.css" />
-    <link rel="stylesheet" href="../styles/global.css" />
-    <link rel="stylesheet" href="../styles/pretendard.css" />
-    <script type="module" src="/components/Header.js"></script>
-    <script type="module" src="../javascript/user.js"></script>
+    <link rel="stylesheet" href="/styles/user.css" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <script type="module" src="/javascript/user.js"></script>
   </head>
   <body>
     <section class="main">
-      <header-component back menu></header-component>
+      <header-component back></header-component>
       <article class="user-edit">
         <div class="user-edit-container">
           <h1 class="title">회원정보수정</h1>
@@ -21,7 +19,7 @@
             <div class="profile-image-container">
               <img
                 id="profile-image"
-                src="../public/images/logo.png"
+                src="/public/images/logo.png"
                 alt="로고 이미지"
               />
               <input
